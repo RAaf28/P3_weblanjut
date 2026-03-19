@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "./components/Button";
 import Card from "./components/Card";
+import ProgressTracker from "./components/ProgressTracker";
 import "./App.css";
 
 function App() {
@@ -10,7 +11,11 @@ function App() {
   const description = hariPuasa === 0 ? "sudah mokel belum?" : `semangat kurang ${30 - hariPuasa} hari lagi`;
 
   const handleButtonClick = () => {
-    setHariPuasa(hariPuasa + 1);
+    setHariPuasa((prev) => prev + 1);
+  };
+
+  const handleReset = () => {
+    setHariPuasa(0);
   };
 
   return (
@@ -18,9 +23,10 @@ function App() {
       <h1>Selamat Datang!</h1>
       <h2>Hari: {hariPuasa}</h2>
       <div className="button-container">
-        <Button text="Tambah" onClick={handleButtonClick} />
+        <Button text="Tambah Hari Puasa" onClick={handleButtonClick} />
       </div>
       <Card title={title} description={description} />
+      <ProgressTracker hariPuasa={hariPuasa} targetHari={30} onReset={handleReset} />
     </div>
   );
 }
